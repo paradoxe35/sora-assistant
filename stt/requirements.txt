@@ -1,0 +1,5 @@
+cffi==1.15.0
+pycparser==2.21
+sounddevice==0.4.4
+vosk==0.3.32
+websockets==10.1
