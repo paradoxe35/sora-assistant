@@ -12,14 +12,14 @@ const record = document.querySelector(".record");
  * @type {HTMLButtonElement}
  */
 const stopEl = document.querySelector(".stop");
+// disable stop button while not recording
+stopEl.disabled = true;
+
 const soundClips = document.querySelector(".sound-clips");
 /** @type {HTMLCanvasElement} */
 const canvas = document.querySelector(".visualizer");
 /** @type {HTMLElement} */
 const mainSection = document.querySelector(".main-controls");
-
-// disable stop button while not recording
-stopEl.disabled = true;
 
 /**
  * @type {AudioContext}
@@ -146,7 +146,6 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
   clientIo.socket.onmessage = asr_message;
 
   // if no noise captured then close recoder
-
   noise_capture.listening(
     audioContext,
     stream,
