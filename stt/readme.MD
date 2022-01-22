@@ -91,3 +91,10 @@ For local speech recognition server
 - `STT_FR_SERVER_PORT` French speech recognition server port. Default value: _2782_
 - `STT_EN_SERVER_PORT` English speech recognition server port. Default value: _2781_
 - `SERVER_INTERFACE` Server interface. Default value: _0.0.0.0_
+
+For third party speech recognizer with wit.ai, those variables below are required to the service.
+
+- `WIT_EN_API_KEY` wit.ai app server key with English as language
+- `WIT_FR_API_KEY` wit.ai app server key with French as language
+
+Here you'll need to create two applications on [wit.io](), so one with french language and another one with English language
