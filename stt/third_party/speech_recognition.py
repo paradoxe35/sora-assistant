@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 import logging
 import os
 import sys
@@ -6,6 +7,8 @@ import speech_recognition as sr
 import websockets
 import concurrent.futures
 import json
+from io import BytesIO
+
 
 from env import server_interface
 
@@ -15,17 +18,33 @@ gr = sr.Recognizer()
 
 def process_chunk(message, sample_rate):
     global lang
-    with sr.AudioData(message, sample_rate=sample_rate, sample_width=1) as source:
+    global wit_en_key
+    global wit_fr_key
+
+    file_like = BytesIO(message)
+    with sr.AudioFile(file_like) as source:
         audio_data = gr.record(source)
-        text = gr.recognize_wit(audio_data, language=lang)
-        print(f'text {text}')
-        return {'text': text}, True
+        if lang.startswith('en') and wit_en_key != None:
+            logging.info('Recognize wit.ai, English Lang')
+            text = gr.recognize_wit(
+                audio_data, key=wit_en_key, show_all=False
+            )
+        elif lang.startswith('fr') and wit_fr_key != None:
+            logging.info('Recognize wit.ai, French Lang')
+            text = gr.recognize_wit(
+                audio_data, key=wit_fr_key, show_all=False
+            )
+        else:
+            logging.info('recognize google')
+            text = gr.recognize_google(
+                audio_data, language=lang, show_all=False
+            )
+        return json.JSONEncoder().encode({"text": text}), True
 
 
 async def recognize(websocket):
     global loop
     global pool
-    global lang
 
     sample_rate = None
 
@@ -51,6 +70,8 @@ def start(language: str, port: int):
     global loop
     global pool
     global lang
+    global wit_en_key
+    global wit_fr_key
 
     lang = language
 
@@ -60,6 +81,8 @@ def start(language: str, port: int):
 
     args.interface = server_interface()
     args.port = port
+    wit_en_key = os.environ.get('WIT_EN_API_KEY')
+    wit_fr_key = os.environ.get('WIT_FR_API_KEY')
 
     pool = concurrent.futures.ThreadPoolExecutor((os.cpu_count() or 1))
     loop = asyncio.get_event_loop()
