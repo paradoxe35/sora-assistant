@@ -116,7 +116,7 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
         `{ "config" : { "sample_rate" : ${value.sampleRate} } }`
       );
     }
-    Recorder.download(value.blob, "sample");
+    // Recorder.download(value.blob, "sample");
     clientIo.socket.send(value.blob);
     clientIo.socket.send('{"eof" : 1}');
   };
