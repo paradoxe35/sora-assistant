@@ -10,6 +10,7 @@ import concurrent.futures
 import logging
 from vosk import Model, SpkModel, KaldiRecognizer
 
+
 def process_chunk(rec, message):
     if message == '{"eof" : 1}':
         return rec.FinalResult(), True
@@ -17,6 +18,7 @@ def process_chunk(rec, message):
         return rec.Result(), False
     else:
         return rec.PartialResult(), False
+
 
 async def recognize(websocket, path):
     global model
@@ -31,7 +33,7 @@ async def recognize(websocket, path):
     show_words = args.show_words
     max_alternatives = args.max_alternatives
 
-    logging.info('Connection from %s', websocket.remote_address);
+    logging.info('Connection from %s', websocket.remote_address)
 
     while True:
 
@@ -54,7 +56,8 @@ async def recognize(websocket, path):
         # Create the recognizer, word list is temporary disabled since not every model supports it
         if not rec:
             if phrase_list:
-                rec = KaldiRecognizer(model, sample_rate, json.dumps(phrase_list, ensure_ascii=False))
+                rec = KaldiRecognizer(model, sample_rate, json.dumps(
+                    phrase_list, ensure_ascii=False))
             else:
                 rec = KaldiRecognizer(model, sample_rate)
             rec.SetWords(show_words)
@@ -64,8 +67,8 @@ async def recognize(websocket, path):
 
         response, stop = await loop.run_in_executor(pool, process_chunk, rec, message)
         await websocket.send(response)
-        if stop: break
-
+        if stop:
+            break
 
 
 def start():
@@ -94,15 +97,7 @@ def start():
     args.show_words = bool(os.environ.get('VOSK_SHOW_WORDS', True))
 
     if len(sys.argv) > 1:
-       args.model_path = sys.argv[1]
-
-    # Gpu part, uncomment if vosk-api has gpu support
-    #
-    # from vosk import GpuInit, GpuInstantiate
-    # GpuInit()
-    # def thread_init():
-    #     GpuInstantiate()
-    # pool = concurrent.futures.ThreadPoolExecutor(initializer=thread_init)
+        args.model_path = sys.argv[1]
 
     model = Model(args.model_path)
     spk_model = SpkModel(args.spk_model_path) if args.spk_model_path else None

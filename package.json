@@ -7,8 +7,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "inline-worker": "^1.1.0",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "socket.io-client": "^4.4.1"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",
