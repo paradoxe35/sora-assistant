@@ -24,7 +24,7 @@ const mainSection = document.querySelector(".main-controls");
 /**
  * @type {AudioContext}
  */
-let audioContext = new AudioContext();
+let audioContext = new AudioContext({ sampleRate: 8000 });
 
 // get canvas 2d context
 const canvasCtx = canvas.getContext("2d");
@@ -32,7 +32,7 @@ const canvasCtx = canvas.getContext("2d");
 const config = {
   app: "webapp",
   server_host: "ws://localhost",
-  server_port: "2700",
+  server_port: "2781",
   min_decibels: -40, // Noise detection sensitivity
   max_blank_time: 1000, // Maximum time to consider a blank (ms)
 };
@@ -76,7 +76,7 @@ var constraints = {
     echoCancellation: true,
     noiseSuppression: true,
     channelCount: 1,
-    sampleRate: 48000,
+    sampleRate: 8000,
   },
   video: false,
 };
@@ -114,17 +114,9 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
         `{ "config" : { "sample_rate" : ${value.sampleRate} } }`
       );
     }
+    // Recorder.download(value.blob, "sample");
     clientIo.socket.send(value.blob);
     clientIo.socket.send('{"eof" : 1}');
-  };
-
-  record.onclick = function () {
-    rec.start();
-    console.log("recorder started");
-    record.style.background = "grey";
-
-    stopEl.disabled = false;
-    record.disabled = true;
   };
 
   const stoppable = function () {
@@ -138,6 +130,17 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
     record.disabled = false;
 
     rec.stop().then(data_recorder);
+  };
+
+  record.onclick = function () {
+    rec.start().then(() => {
+      window.setTimeout(stoppable, 1000 * 20);
+    });
+    console.log("recorder started");
+    record.style.background = "grey";
+
+    stopEl.disabled = false;
+    record.disabled = true;
   };
 
   stopEl.onclick = stoppable;
