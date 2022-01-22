@@ -1,4 +1,4 @@
-## End to end speech recognition to text system
+## End to end speech recognition system
 
 - **French Server port:** 2782
 - **English Server port:** 2781
