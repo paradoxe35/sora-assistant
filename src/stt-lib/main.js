@@ -16,18 +16,15 @@ const stopEl = document.querySelector(".stop");
 stopEl.disabled = true;
 
 const soundClips = document.querySelector(".sound-clips");
-/** @type {HTMLCanvasElement} */
-const canvas = document.querySelector(".visualizer");
 /** @type {HTMLElement} */
 const mainSection = document.querySelector(".main-controls");
 
-/**
- * @type {AudioContext}
- */
-let audioContext = new AudioContext({ sampleRate: 8000 });
-
+/** @type {HTMLCanvasElement} */
+const canvas = document.querySelector(".visualizer");
 // get canvas 2d context
 const canvasCtx = canvas.getContext("2d");
+
+const audio_options = { sampleRate: 16000 };
 
 const config = {
   app: "webapp",
@@ -36,6 +33,11 @@ const config = {
   min_decibels: -40, // Noise detection sensitivity
   max_blank_time: 1000, // Maximum time to consider a blank (ms)
 };
+
+/**
+ * @type {AudioContext}
+ */
+let audioContext = new AudioContext(audio_options);
 
 const serverUrl = `${config.server_host}:${config.server_port}`;
 
@@ -76,7 +78,7 @@ var constraints = {
     echoCancellation: true,
     noiseSuppression: true,
     channelCount: 1,
-    sampleRate: 8000,
+    sampleRate: audio_options.sampleRate,
   },
   video: false,
 };
@@ -114,7 +116,7 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
         `{ "config" : { "sample_rate" : ${value.sampleRate} } }`
       );
     }
-    // Recorder.download(value.blob, "sample");
+    Recorder.download(value.blob, "sample");
     clientIo.socket.send(value.blob);
     clientIo.socket.send('{"eof" : 1}');
   };
