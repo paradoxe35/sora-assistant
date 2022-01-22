@@ -9,6 +9,9 @@ import websockets
 import concurrent.futures
 import logging
 from vosk import Model, SpkModel, KaldiRecognizer
+from stt.env import fr_server_port
+
+from stt.local.model_path import fr_model_path
 
 
 def process_chunk(rec, message):
@@ -89,8 +92,8 @@ def start():
     args = type('', (), {})()
 
     args.interface = os.environ.get('VOSK_SERVER_INTERFACE', '0.0.0.0')
-    args.port = int(os.environ.get('VOSK_SERVER_PORT', 2782))
-    args.model_path = os.environ.get('VOSK_MODEL_PATH', 'stt/local/model/fr')
+    args.port = fr_server_port()
+    args.model_path = fr_model_path()
     args.spk_model_path = os.environ.get('VOSK_SPK_MODEL_PATH')
     args.sample_rate = float(os.environ.get('VOSK_SAMPLE_RATE', 8000))
     args.max_alternatives = int(os.environ.get('VOSK_ALTERNATIVES', 0))
