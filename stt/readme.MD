@@ -24,7 +24,7 @@ Here are list of proccess need to be setup on this section:
 - Install all dependencies which are list in **requirements.txt** - run:
 
 ```bash
-pip install -r stt/requirements.txt
+pip install -r requirements.txt
 ```
 
 - Download French vosk speech recognition model - run:
