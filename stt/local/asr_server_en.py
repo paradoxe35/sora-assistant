@@ -9,7 +9,7 @@ import concurrent.futures
 import logging
 from vosk import Model, SpkModel, KaldiRecognizer
 
-from env import en_server_port
+from env import en_server_port, server_interface
 from .model_path import en_model_path
 
 
@@ -90,7 +90,7 @@ def start():
 
     args = type('', (), {})()
 
-    args.interface = os.environ.get('VOSK_SERVER_INTERFACE', '0.0.0.0')
+    args.interface = server_interface()
     args.port = en_server_port()
     args.model_path = en_model_path()
     args.spk_model_path = os.environ.get('VOSK_SPK_MODEL_PATH')
