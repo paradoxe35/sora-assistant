@@ -32,7 +32,7 @@ def setup():
         if model in ['fr', 'french']:
             MODEL_FR_VERSION = os.environ.get('MODEL_FR_VERSION', '0.6')
             LINTO_FR_VERSION = os.environ.get('LINTO_FR_VERSION', '2.2.0')
-            url = f"https://alphacephei.com/vosk/models/vosk-model-fr-${MODEL_FR_VERSION}-linto-${LINTO_FR_VERSION}.zip "
+            url = f"https://alphacephei.com/vosk/models/vosk-model-fr-{MODEL_FR_VERSION}-linto-{LINTO_FR_VERSION}.zip"
             download_model('French', url, fr_model_path())
 
         elif model in ['en', 'english']:
