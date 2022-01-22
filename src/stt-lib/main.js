@@ -88,6 +88,8 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
     "getUserMedia() success, stream created, initializing Recorder.js ..."
   );
 
+  const started_timer = { value: 0 };
+
   await audioContext.resume();
 
   /* Create the Recorder object and configure to record mono sound (1 channel) Recording 2 channels will double the file size */
@@ -131,11 +133,14 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
     stopEl.disabled = true;
     record.disabled = false;
 
+    started_timer.value = 0;
+
     rec.stop().then(data_recorder);
   };
 
   record.onclick = function () {
     rec.start().then(() => {
+      started_timer.value = Date.now();
       window.setTimeout(stoppable, 1000 * 20);
     });
     console.log("recorder started");
@@ -157,7 +162,10 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
     config.min_decibels,
     config.max_blank_time,
     () => {},
-    stoppable
+    () => {
+      const now = Date.now() - started_timer.value;
+      if (now > 1000) stoppable();
+    }
   );
 });
 
