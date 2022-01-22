@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 
 import json
 import os
@@ -9,9 +8,9 @@ import websockets
 import concurrent.futures
 import logging
 from vosk import Model, SpkModel, KaldiRecognizer
-from stt.env import fr_server_port
 
-from stt.local.model_path import fr_model_path
+from env import en_server_port
+from .model_path import en_model_path
 
 
 def process_chunk(rec, message):
@@ -92,15 +91,12 @@ def start():
     args = type('', (), {})()
 
     args.interface = os.environ.get('VOSK_SERVER_INTERFACE', '0.0.0.0')
-    args.port = fr_server_port()
-    args.model_path = fr_model_path()
+    args.port = en_server_port()
+    args.model_path = en_model_path()
     args.spk_model_path = os.environ.get('VOSK_SPK_MODEL_PATH')
     args.sample_rate = float(os.environ.get('VOSK_SAMPLE_RATE', 8000))
     args.max_alternatives = int(os.environ.get('VOSK_ALTERNATIVES', 0))
     args.show_words = bool(os.environ.get('VOSK_SHOW_WORDS', True))
-
-    if len(sys.argv) > 1:
-        args.model_path = sys.argv[1]
 
     model = Model(args.model_path)
     spk_model = SpkModel(args.spk_model_path) if args.spk_model_path else None
@@ -114,7 +110,3 @@ def start():
     logging.info("Listening on %s:%d", args.interface, args.port)
     loop.run_until_complete(start_server)
     loop.run_forever()
-
-
-if __name__ == '__main__':
-    start()
