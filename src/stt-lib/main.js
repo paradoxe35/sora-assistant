@@ -41,7 +41,8 @@ const serverUrl = `${config.server_host}:${config.server_port}`;
 
 const clientIo = {
   socket: new WebSocket(serverUrl),
-  ready() {
+  new_socket() {
+    this.socket = new WebSocket(serverUrl);
     return new Promise((resolve) =>
       this.socket.addEventListener("open", resolve, { once: true })
     );
@@ -102,8 +103,7 @@ navigator.mediaDevices.getUserMedia(constraints).then(async function (stream) {
   const data_recorder = async (value) => {
     // if connection has closed, inistiate a new one when message listener
     if (clientIo.socket.readyState === 3) {
-      clientIo.socket = new WebSocket(serverUrl);
-      await clientIo.ready();
+      await clientIo.new_socket();
       //  response from socket
       clientIo.socket.onmessage = asr_message;
     }
