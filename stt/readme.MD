@@ -101,7 +101,7 @@ Here you'll need to create two applications on [wit.io](), so one with french la
 
 ### Models
 
-Our speech recognition local Models versions.
+Our speech recognition local Models versions files.
 **French**:
 
 - `MODEL_FR_VERSION` default value: _0.6_
