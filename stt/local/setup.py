@@ -13,7 +13,12 @@ load_dotenv()
 
 def download_model(model: str, url: str, path: str):
     print(f'Download {model} vosk model...')
-    filename = wget.download(url)
+
+    # download model file if onlu exists
+    filename = url.split('/')[-1]
+    if os.path.exists(filename) == False:
+        filename = wget.download(url)
+
     with ZipFile(filename, 'r') as zipObj:
         # extract model file from zip
         zipObj.extractall(path)
