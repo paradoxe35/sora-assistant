@@ -4,8 +4,11 @@ import sys
 import wget
 from zipfile import ZipFile
 import logging
+from dotenv import load_dotenv
 
 from model_path import en_model_path, fr_model_path
+
+load_dotenv()
 
 
 def download_model(model: str, url: str, path: str):
