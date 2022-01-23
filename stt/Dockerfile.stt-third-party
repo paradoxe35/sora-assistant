@@ -1,0 +1,17 @@
+FROM python:3.8.9
+
+WORKDIR /app
+
+RUN pip install --upgrade pip
+
+COPY ./requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./stt /app/stt
+
+COPY .env .env
+
+EXPOSE 2781
+
+CMD [ "python", "./stt/server.py", "third-party" ]

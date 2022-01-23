@@ -31,13 +31,13 @@ pip install -r requirements.txt
 - Download French vosk speech recognition model - run:
 
 ```bash
-pip install -r stt/local/setup.py fr
+python stt/local/setup.py fr
 ```
 
 - Download English vosk speech recognition model - run:
 
 ```bash
-pip install -r stt/local/setup.py en
+python stt/local/setup.py en
 ```
 
 ### Server

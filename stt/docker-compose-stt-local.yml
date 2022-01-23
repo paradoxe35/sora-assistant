@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  stt-en_us:
+    container_name: stt-en_us
+    build:
+      context: .
+      dockerfile: stt/Dockerfile.stt-local-en
+    restart: always
+    ports:
+      - "${STT_EN_LOCAL_SERVER_PORT}:2700"
+
+  stt-fr_fr:
+    container_name: stt-fr_fr
+    build:
+      context: .
+      dockerfile: stt/Dockerfile.stt-local-fr
+    restart: always
+    ports:
+      - "${STT_FR_LOCAL_SERVER_PORT}:2700"

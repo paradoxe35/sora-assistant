@@ -1,0 +1,19 @@
+FROM python:3.8.9
+
+WORKDIR /app
+
+RUN pip install --upgrade pip
+
+COPY ./requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY ./stt /app/stt
+
+COPY .env .env
+
+RUN python stt/local/setup.py fr
+
+EXPOSE 2782
+
+CMD [ "python", "./stt/server.py", "local-fr" ]
