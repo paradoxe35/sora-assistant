@@ -4,7 +4,7 @@ services:
   stt-en_us:
     container_name: stt-en_us
     build:
-      context: .
+      context: ../
       dockerfile: stt/Dockerfile.stt-local-en
     restart: always
     ports:
@@ -13,7 +13,7 @@ services:
   stt-fr_fr:
     container_name: stt-fr_fr
     build:
-      context: .
+      context: ../
       dockerfile: stt/Dockerfile.stt-local-fr
     restart: always
     ports:

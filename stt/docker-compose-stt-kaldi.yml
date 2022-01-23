@@ -12,10 +12,6 @@ services:
       service: stt-fr_fr
 
   stt-third-party:
-    container_name: stt-third-party
-    build:
-      context: ../
-      dockerfile: stt/Dockerfile.stt-third-party
-    restart: always
-    ports:
-      - "${STT_THIRD_PARTY_SERVER_PORT}:2700"
+    extends:
+      file: docker-compose-stt.yml
+      service: stt-third-party
