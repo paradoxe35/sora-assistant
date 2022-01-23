@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+venv/
+venv3/
+*.zip
+*.tmp
+stt/local/model/*
