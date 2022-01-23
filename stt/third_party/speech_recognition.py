@@ -27,12 +27,12 @@ def process_chunk(message, sample_rate):
         if lang.startswith('en') and wit_en_key != None:
             logging.info('Recognize wit.ai, English Lang')
             text = gr.recognize_wit(
-                audio_data, key=wit_en_key, show_all=False
+                audio_data, key="en-US", show_all=False
             )
         elif lang.startswith('fr') and wit_fr_key != None:
             logging.info('Recognize wit.ai, French Lang')
             text = gr.recognize_wit(
-                audio_data, key=wit_fr_key, show_all=False
+                audio_data, key="fr-FR", show_all=False
             )
         else:
             logging.info('recognize google')
