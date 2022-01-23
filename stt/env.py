@@ -10,4 +10,4 @@ def en_server_port():
 
 
 def server_interface():
-    return os.environ.get('SERVER_INTERFACE', '0.0.0.0')
+    return os.environ.get('STT_SERVER_INTERFACE', '0.0.0.0')

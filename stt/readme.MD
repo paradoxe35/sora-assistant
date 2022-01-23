@@ -90,7 +90,7 @@ For local speech recognition server
 
 - `STT_FR_SERVER_PORT` French speech recognition server port. Default value: _2782_
 - `STT_EN_SERVER_PORT` English speech recognition server port. Default value: _2781_
-- `SERVER_INTERFACE` Server interface. Default value: _0.0.0.0_
+- `STT_SERVER_INTERFACE` Server interface. Default value: _0.0.0.0_
 
 For third party speech recognizer with wit.ai, those variables below are required to the service.
 
