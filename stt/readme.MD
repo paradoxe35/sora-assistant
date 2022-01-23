@@ -8,13 +8,13 @@
 For a quick setup, you can use docker compose by running the following command:
 
 ```bash
-docker-compose -f ./stt/local/docker/docker-compose.yml up -d
+docker-compose -f ./stt/docker/docker-compose.yml up -d
 ```
 
 You can specify a service instead of run all services
 
 ```bash
-docker-compose -f ./stt/local/docker/docker-compose.yml up [service](stt-en_us | stt-fr_fr) -d
+docker-compose -f ./stt/docker/docker-compose.yml up [service](stt-en_us | stt-fr_fr) -d
 ```
 
 ## Alternative Setup
