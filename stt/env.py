@@ -10,7 +10,7 @@ def en_server_port():
 
 
 def third_party_server_port():
-    return int(os.environ.get('STT_EN_THIRD_PARTY_SERVER_PORT', 2790))
+    return int(os.environ.get('STT_THIRD_PARTY_SERVER_PORT', 2790))
 
 
 def server_interface():
