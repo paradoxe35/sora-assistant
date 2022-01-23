@@ -7,3 +7,4 @@ venv/
 venv3/
 *.zip
 *.tmp
+.env
