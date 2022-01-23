@@ -10,7 +10,7 @@ import json
 from io import BytesIO
 
 
-from env import server_interface
+from env import server_interface, third_party_server_port
 
 
 gr = sr.Recognizer()
@@ -45,8 +45,11 @@ def process_chunk(message, sample_rate):
 async def recognize(websocket):
     global loop
     global pool
+    global lang
 
     sample_rate = None
+
+    lang = None
 
     while True:
         message = await websocket.recv()
@@ -58,7 +61,15 @@ async def recognize(websocket):
             logging.info("Config %s", jobj)
             if 'sample_rate' in jobj:
                 sample_rate = float(jobj['sample_rate'])
+            if 'language' in jobj:
+                lang = str(jobj['language'])
             continue
+
+        if lang == None:
+            message = "No speech language has been provided"
+            logging.warning(message)
+            await websocket.send(json.JSONEncoder().encode({"error": message}))
+            break
 
         response, stop = await loop.run_in_executor(pool, process_chunk, message, sample_rate)
         await websocket.send(response)
@@ -66,21 +77,18 @@ async def recognize(websocket):
             break
 
 
-def start(language: str, port: int):
+def start():
     global loop
     global pool
-    global lang
     global wit_en_key
     global wit_fr_key
-
-    lang = language
 
     args = type('', (), {})()
 
     logging.basicConfig(level=logging.INFO)
 
     args.interface = server_interface()
-    args.port = port
+    args.port = third_party_server_port()
     wit_en_key = os.environ.get('WIT_EN_API_KEY')
     wit_fr_key = os.environ.get('WIT_FR_API_KEY')
 

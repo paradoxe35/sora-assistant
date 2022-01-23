@@ -1,7 +1,8 @@
 ## End to end speech recognition system
 
-- **French Server port:** 2782
-- **English Server port:** 2781
+- **English Local Server port:** 2781
+- **French Local Server port:** 2782s
+- **English and French Server port by third party (Gooogle, Wit.ai)** 2790
 
 ## Docker compose Setup
 
@@ -63,16 +64,10 @@ python ./stt/server.py local-en
 
 To run server using third party services, use commands below:
 
-- French speech recognition - run:
+- French and English both are supported in third party speech recognition - run:
 
 ```bash
-python ./stt/server.py sr-fr
-```
-
-- English speech recognition - run:
-
-```bash
-python ./stt/server.py sr-en
+python ./stt/server.py third-party
 ```
 
 ## Environment variables
@@ -88,8 +83,9 @@ For local speech recognizer
 
 For local speech recognition server
 
-- `STT_FR_SERVER_PORT` French speech recognition server port. Default value: _2782_
-- `STT_EN_SERVER_PORT` English speech recognition server port. Default value: _2781_
+- `STT_EN_LOCAL_SERVER_PORT` English speech recognition server port. Default value: _2781_
+- `STT_FR_LOCAL_SERVER_PORT` French speech recognition server port. Default value: _2782_
+- `STT_EN_THIRD_PARTY_SERVER_PORT` English speech recognition server port. Default value: _2790_
 - `STT_SERVER_INTERFACE` Server interface. Default value: _0.0.0.0_
 
 For third party speech recognizer with wit.ai, those variables below are required to the service.
@@ -110,6 +106,5 @@ Our speech recognition local Models versions files.
 **English**:
 
 - `MODEL_EN_VERSION` default value: _0.22_
-
 
 For informations, check out all supported [models](https://alphacephei.com/vosk/models) by vosk.

@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from env import fr_server_port, en_server_port  # noqa
-
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         executor = sys.argv[1]
@@ -17,10 +15,8 @@ if __name__ == '__main__':
             start_en_server()
         elif executor == 'local-fr':
             start_fr_server()
-        elif executor == 'sr-fr':
-            start_sr('fr-FR', fr_server_port())
-        elif executor == 'sr-en':
-            start_sr('en-US', en_server_port())
+        elif executor == 'third-party':
+            start_sr()
         else:
             logging.warning('unknown server argument')
     else:
