@@ -98,3 +98,18 @@ For third party speech recognizer with wit.ai, those variables below are require
 - `WIT_FR_API_KEY` wit.ai app server key with French as language
 
 Here you'll need to create two applications on [wit.io](), so one with french language and another one with English language
+
+### Models
+
+Our speech recognition local Models versions for setup download.
+**French**:
+
+- `MODEL_FR_VERSION` default value: _0.6_
+- `LINTO_FR_VERSION` default value: _2.2.0_
+
+**English**:
+
+- `MODEL_EN_VERSION` default value: _0.22_
+
+
+For informations, check out all supported [models](https://alphacephei.com/vosk/models) by vosk.
