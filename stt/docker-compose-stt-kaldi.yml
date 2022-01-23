@@ -3,12 +3,12 @@ version: "3.9"
 services:
   stt-en_us:
     extends:
-      file: docker-compose-stt-local.yml
+      file: kaldi-docker/docker-compose.yml
       service: stt-en_us
 
   stt-fr_fr:
     extends:
-      file: docker-compose-stt-local.yml
+      file: kaldi-docker/docker-compose.yml
       service: stt-fr_fr
 
   stt-third-party:
