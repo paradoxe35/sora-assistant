@@ -12,7 +12,11 @@ COPY ./stt /app/stt
 
 COPY .env .env
 
+COPY tmp/*.zip tmp/
+
 RUN python stt/local/setup.py fr
+
+RUN rm tmp/*.zip
 
 EXPOSE 2782
 
