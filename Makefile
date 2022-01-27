@@ -1,3 +1,5 @@
+SHELL := /bin/bash
+
 help:
 	@echo ""
 	@echo "--------------- STT docker compose commands ---------------"
@@ -24,25 +26,49 @@ help:
 
 # stt docker compose make commands
 stt-all-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt.yml up -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/docker-compose-stt.yml \
+		up -d
 
 stt-all-kaldi-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt-kaldi.yml up -d
+	docker-compose \
+	--env-file ./.env \
+	-f ./stt/docker-compose-stt-kaldi.yml \
+	up -d
 
 stt-kaldi-fr-docker:
-	docker-compose --env-file ./.env -f ./stt/kaldi-docker/docker-compose.yml up stt-fr_fr -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/kaldi-docker/docker-compose.yml \
+		up stt-fr_fr -d
 
 stt-kaldi-en-docker:
-	docker-compose --env-file ./.env -f ./stt/kaldi-docker/docker-compose.yml up stt-en_us -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/kaldi-docker/docker-compose.yml \
+		up stt-en_us -d
 
 stt-local-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt-local.yml up -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/docker-compose-stt-local.yml \
+		up -d
 
 stt-local-fr-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt-local.yml up stt-fr_fr -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/docker-compose-stt-local.yml \
+		up stt-fr_fr -d
 
 stt-local-en-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt-local.yml up stt-en_us -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/docker-compose-stt-local.yml \
+		up stt-en_us -d
 
 stt-third-party-docker:
-	docker-compose --env-file ./.env -f ./stt/docker-compose-stt.yml up stt-third-party -d
+	docker-compose \
+		--env-file ./.env \
+		-f ./stt/docker-compose-stt.yml \
+		up stt-third-party -d
