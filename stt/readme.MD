@@ -93,7 +93,7 @@ For third party speech recognizer with wit.ai, those variables below are require
 - `WIT_EN_API_KEY` wit.ai app server key with English as language
 - `WIT_FR_API_KEY` wit.ai app server key with French as language
 
-Here you'll need to create two applications on [wit.io](), so one with french language and another one with English language
+Here you'll need to create two applications on [wit.ai](https://wit.ai), so one with french language and another one with English language
 
 ### Models
 
